@@ -1,0 +1,11 @@
+[book]
+authors = ["Hifive"]
+language = "zh-cn"
+multilingual = false
+src = "src"
+title = "Math"
+description = "Ideas about math"
+
+[output.html]
+editable = true
+mathjax-support = true
