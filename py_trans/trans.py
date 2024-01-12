@@ -12,6 +12,7 @@ class Trans:
             with open(self.file_path, 'r', encoding='utf-8') as f:
                 self.origin_content = f.read()
         self.to_content = ""
+        
     def transmit(self):
         def replace_inner(match):
             if match.group() == "$$":
