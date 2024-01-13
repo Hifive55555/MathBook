@@ -1,18 +1,21 @@
 # Matrix
 
-> 在这里我们只探寻矩阵的来源，不讨论向量空间。我认为，在向量空间中，列表的概念需要与矩阵稍作区分；而在这一章只是两种不同的写法而已。\
-> 换句话说，在这一章，一个列表就可以被看作一个矩阵，但不是一个向量。
+## Beforehand： List And Linear Combination
 
-## List
+### List
 
 - **Definition** *List*
   
-  **List** 是一个由两边的括号和逗号把一堆有序的、互不相干的值表示起来的方式。（括号可以省略不写）
-  $$a=(a_1,a_2,\cdots,a_n)$$
+  **列表**就是一列元素（括号可以省略不写）
+  $$(a_1,a_2,\cdots,a_n)$$
 
-- **Definition** *Coordinate*
-  
-  列表的某一坐标就是列表的某一项
+  若 $\quad a_1,a_2,\cdots,a_n\in\mathbb{F}$ ，则称 $(a_1,a_2,\cdots,a_n)$ 为一个**数组**。
+
+  - **Definition** *Coordinate*\
+  列表中的一个数就是列表的坐标
+
+  - **Definition** *Length*\
+  列表的长度就是列表坐标的个数
 
 - **Property** *List*
   
@@ -23,44 +26,57 @@
 
 - **Definition** $F^n$
   
-  $R_n=\{ (a_1,a_2,\cdots,a_n):a_1,a_2,\cdots,a_n \in F \}$
+  $F^n$ 就是所有长度相同的数组的集合
+  $$F^n=\{ (a_1,a_2,\cdots,a_n):a_1,a_2,\cdots,a_n \in F \}$$
 
-## Linear Combination
+列表是一个抽象概念，这意味着很多类似于列表的结构都可以用列表来表示。例如一个空间向量就可以用列表来表示，列表也可以用空间向量来理解。但列表和向量本质上是两种概念。在后面我们会看到，列表也可以构成一个向量空间，此时列表就是这个空间的向量。
+
+### Linear Combination
 
 - **Definition** *Linear Combination*
   
-  If $a=a_1x_1+a_2x_2+\cdots+a_nx_n$ , then $a$ is called a ***linear combination*** of $x_1,\ x_2\ ,\cdots,\ x_n$ .
+  线性组合就是把列表里的向量乘上一个系数在加起来。
+  If $a$ is a ***linear combination*** of $(x_1,\ x_2\ ,\cdots,\ x_n)$ , then $a=a_1x_1+a_2x_2+\cdots+a_nx_n$ .
+
+### Corollary
+
+如果关于 $(x_1,x_2,\cdots,x_n)$ 的线性组合有多个，我们可以把它写成一个列表。
+$$(a_{11}x_1+\cdots+a_{1n}x_n,\cdots,a_{m1}x_1+\cdots+a_{mn}x_n),\quad a_{ij}\in\mathbb{F}$$
+
+这个列表等同于一个新的关于 $(x_1,x_2,\cdots,x_n)$ 的线性组合。即：
+$$(a_{11},\cdots,a_{1m})x_1+\cdots+(a_{n1},\cdots,a_{nm})x_1$$
 
 ## Linear Function
 
 > Linear function is synonymous with being proportional.
 
-For $x\in\mathbb{R}$,\
-a Linear function $f:\mathbb{R}\to\mathbb{R}$ is such that $f(x)=ax$ ;\
-a Linear function $f:\mathbb{R^2}\to\mathbb{R}$ is such that $f(x,y)=ax+by$ ;\
-a Linear function $f:\mathbb{R}\to\mathbb{R^2}$ is such that $f(x)=(ax,bx)$ ;\
-a Linear function $f:\mathbb{R^2}\to\mathbb{R^2}$ is such that $f(x,y)=(a_1x+b_1y,a_2x+b_2y)$ ;\
+下面我们想通过线性方程来尝试理解单纯意义的矩阵（而不是直接通过线性方程组得到）。
+
+- **Definition** *Linear Function*
+  
+  线性函数就是输出一个 $(x_1,x_2,\cdots,x_n)$ 的不同的线性组合的列表的函数。也就是说，它是 $\mathbb{F^n}$ 之间的一种映射。
+
+For $x,y\in\mathbb{R}$,\
+a linear function $f:\mathbb{R}\to\mathbb{R}$ is such that $f(x)=ax$ ;\
+a linear function $f:\mathbb{R^2}\to\mathbb{R}$ is such that $f(x,y)=ax+by$ ;\
+a linear function $f:\mathbb{R}\to\mathbb{R^2}$ is such that $f(x)=(ax,bx)$ ;\
+a linear function $f:\mathbb{R^2}\to\mathbb{R^2}$ is such that $f(x,y)=(a_1x+b_1y,a_2x+b_2y)$ ;\
 (We'll talk about this case latter for why it can be think proportional)
 
 For $x=(x_1,\cdots,x_n)\in\mathbb{R^n}$ ,\
-a Linear function $f:\mathbb{R^n}\to\mathbb{R^n}$ is such that\
+a linear function $f:\mathbb{R^{n}}\to\mathbb{R^m}$ is such that\
 $f(x_1,\cdots,x_n)=
-(\overbrace{\underbrace{a_{11}x_1+\cdots+a_{1n}x_n}^{n},\cdots,a_{n1}x_1+\cdots+a_{nn}x_n}^{n})$ ;\
-a Linear function $f:\mathbb{R^{n}}\to\mathbb{R^m}$ is such that\
-$f(x_1,\cdots,x_n)=
-(\overbrace{\underbrace{a_{11}x_1+\cdots+a_{1n}x_n}^{n},\cdots,a_{m1}x_1+\cdots+a_{mn}x_n}^{m})$ ;
+(\overbrace{\underbrace{a_{11}x_1+\cdots+a_{1n}x_n}_{n},\cdots,a_{m1}x_1+\cdots+a_{mn}x_n}^{m})$ ;
 
-For $x\in\mathbb{R^n}$ , and $n>1$ , the function $f$ of $x$ operates more than one coordinate. If we define $g_i:\mathbb{R^n}\to\mathbb{R}$ as a map from $x$ to each coordinate $y_i$ in the output list .
-
-That means if $f:x\mapsto y,x\in\mathbb{R^n},y\in\mathbb{R^m}$ , hence $(y_1,\cdots,y_m)=f(x_1,\cdots,x_n)$, this can be denoted by a ***linear simultaneous equations***
+If a linear function $f:x\mapsto y,x\in\mathbb{R^n},y\in\mathbb{R^m}$ , i.e. $(y_1,\cdots,y_m)=f(x_1,\cdots,x_n)$, it can be denoted by a ***linear simultaneous equations***
 $$\begin{cases}
-y_1=g_1(x_1,\cdots,x_n)=a_{11}x_1+\cdots+a_{1n}x_n\\
-y_2=g_2(x_2,\cdots,x_n)=a_{21}x_1+\cdots+a_{2n}x_n\\
-\ \vdots\\
-y_m=g_m(x_1,\cdots,x_n)=a_{m1}x_1+\cdots+a_{mn}x_n
+y_1=a_{11}x_1+\cdots+a_{1n}x_n\\
+y_2=a_{21}x_1+\cdots+a_{2n}x_n\\
+\quad\ \ \vdots\\
+y_m=a_{m1}x_1+\cdots+a_{mn}x_n
 \end{cases}$$
 
-or just a list (vertical)
+or at a form of list (vertical)
 $$\begin{matrix}y_1,\\ y_2,\\ \vdots,\\ y_m
 \end{matrix}=
 \overbrace{
@@ -70,32 +86,16 @@ $$\begin{matrix}y_1,\\ y_2,\\ \vdots,\\ y_m
   \vdots\ ,\\
   a_{m1}x_1+\cdots+a_{mn}x_n
 \end{matrix}}^{n}
-% \begin{matrix}
-%   \left.
-%   \begin{matrix}\\ \\ \\ \\ \end{matrix}
-%   \right\}m
-% \end{matrix}
 \tag{2.1}$$
 
-There may be another way to look at it if we define $h_j:\mathbb{R}\to\mathbb{R^m}$ as a map from each coordinate $x_i$ in the output list to $y$.
-
-This can be denoted by
-$$(y_1,\cdots,y_m)=h_1(x_1)+\cdots+h_n(x_n)$$
-$$
-% \begin{matrix}\\ y_1,\\ y_2,\\ \vdots,\\ y_m
-% \end{matrix}=
-(y_1,\cdots,y_m)=
+There may be another way to look at it.
+$$(y_1,\cdots,y_m)=
 \begin{matrix}
   x_1\overbrace{(a_{11},\cdots,a_{m1})}^{m}\ +\\
   x_2(a_{11},\cdots,a_{m1})\ +\\
   \cdots+\\
   x_n(a_{1n},\cdots,a_{mn})\ \ \
 \end{matrix}
-% \begin{matrix}
-%   \\ \left.
-%   \begin{matrix}\\ \\ \\ \\ \end{matrix}
-%   \right\}n
-% \end{matrix}
 \tag{2.2}$$
 
 $(2.1)$ 式和 $(2.2)$ 式长得很像啊，就好像只是翻转了一下。而且我们很想把 $(2.2)$ 式提取公因式的操作应用到 $(2.1)$ 式上。我想也许有更优雅并且更清晰的方式去书写。
