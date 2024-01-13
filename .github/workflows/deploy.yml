@@ -1,36 +1,41 @@
-name: Deploy and publish
+name: GitHub Pages
+
 on:
   push:
     branches:
-      - main
+      - main  # Set a branch name to trigger deployment
   pull_request:
-    branches:
-      - main
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  deploy:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1
+      - uses: actions/checkout@v3
         with:
-          mdbook-version: "latest"
-        
-      - run: mdbook build . --dest-dir ./book
-      
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.110.0'
+
+      - name: Build
+        run: hugo --minify
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        # If you're changing the branch from main,
+        # also change the `main` in `refs/heads/main`
+        # below accordingly.
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./book
-          publish_branch: gh-pages
-
-
+          publish_dir: ./Book
+          publish_branch: gh-pages  # default: gh-pages
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
