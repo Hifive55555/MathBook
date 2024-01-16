@@ -25,7 +25,7 @@
 
   另，若 $\mathbb{F}$ 是实数域 ℝ，则 $V$ 称为实数向量空间；若 $\mathbb{F}$ 是复数域 ℂ ，则 $V$ 称为复数向量空间；若 $\mathbb{F}$ 是有限域，则 $V$ 称为有限域向量空间。
 
-  > 对于**域加法**和**域乘法**的定义详见 [List And Matrix](list_and_matrix.md)
+  > 对于**域加法**和**域乘法**的定义详见 [List And Matrix](list_and_matrix#beforhand)
 
 - **Definition** *Vector*
   

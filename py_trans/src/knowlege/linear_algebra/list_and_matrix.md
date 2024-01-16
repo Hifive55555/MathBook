@@ -134,7 +134,7 @@ $\mathbb{F}$ 表示要么是 $\mathbb{R}$ ，要么是 $\mathbb{C}$ 。
     记为
     $$y=Ax$$
 
-  - 表示线性变换
+  - 表示[线性变换](linear_map#linear-map)
 
     若 $T\in\mathcal{L}(V,W)$ ，$v_1,v_2\cdots,v_n$ 和 $w_1,w_2\cdots,w_m$ 分别是 $V$ 和 $W$ 的两组基。则定义 $m$-by-$n$ 矩阵
     $$A=\begin{bmatrix}
@@ -173,12 +173,12 @@ $\mathbb{F}$ 表示要么是 $\mathbb{R}$ ，要么是 $\mathbb{C}$ 。
 
 1. 矩阵乘以一个列矩阵
 
-    1. 线性变换
+    1. [线性变换](linear_map#linear-map)
 
         > 线性变换的详细定义参见下下篇文章
         我们发现线性变换终不过是线性方程组的形式，因此其结果应该于线性方程组的一致。
 
-    2. 线性方程组
+    2. [线性方程组](simultaneous_linear_equations)
 
         我们用这样的图来直观地感受矩阵之于线性方程组的操作:
 
@@ -217,7 +217,7 @@ $\mathbb{F}$ 表示要么是 $\mathbb{R}$ ，要么是 $\mathbb{C}$ 。
 
 2. 两个矩阵相乘
 
-    > 详见下一篇: 线性方程组
+    > 详见下一篇: [线性方程组](simultaneous_linear_equations)
 
 - **Definition** *Matmul Product*
 
