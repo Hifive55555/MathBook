@@ -107,7 +107,7 @@ $\mathbb{F}$ 表示要么是 $\mathbb{R}$ ，要么是 $\mathbb{C}$ 。
 
 - **Application**
 
-  - 表示线性方程组
+  - 表示[线性方程组](simultaneous_linear_equations)
 
     线性方程组
     $$\begin{cases}
