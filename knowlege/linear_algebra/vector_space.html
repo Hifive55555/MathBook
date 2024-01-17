@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Vector Space - Math</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Ideas about math">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">Preface</a></li><li class="chapter-item expanded "><a href="../../knowlege/index.html"><strong aria-hidden="true">1.</strong> Knowlege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../knowlege/linear_algebra/index.html"><strong aria-hidden="true">1.1.</strong> Linear Algebra</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../knowlege/linear_algebra/list_and_matrix.html"><strong aria-hidden="true">1.1.1.</strong> List And Matrix</a></li><li class="chapter-item expanded "><a href="../../knowlege/linear_algebra/simultaneous_linear_equations.html"><strong aria-hidden="true">1.1.2.</strong> Simultaneous Linear Equations</a></li><li class="chapter-item expanded "><a href="../../knowlege/linear_algebra/vector_space.html" class="active"><strong aria-hidden="true">1.1.3.</strong> Vector Space</a></li><li class="chapter-item expanded "><a href="../../knowlege/linear_algebra/linear_map.html"><strong aria-hidden="true">1.1.4.</strong> Linear Map</a></li></ol></li><li class="chapter-item expanded "><a href="../../knowlege/alnalyze/index.html"><strong aria-hidden="true">1.2.</strong> Analyze</a></li></ol></li><li class="chapter-item expanded "><a href="../../model/index.html"><strong aria-hidden="true">2.</strong> Models</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../model/analyze/index.html"><strong aria-hidden="true">2.1.</strong> Analyze</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../model/analyze/limit_and_calculus.html"><strong aria-hidden="true">2.1.1.</strong> Limit And Calculus</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../technique/index.html"><strong aria-hidden="true">3.</strong> Techniques</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../technique/fraction.html"><strong aria-hidden="true">3.1.</strong> Fraction</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Math</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="vecotor-space"><a class="header" href="#vecotor-space">Vecotor Space</a></h1>
+<p><strong>向量空间</strong>是一种代数结构，它被定义为带有<strong>加法</strong>和<strong>数乘</strong>的集合。向量空间的元素被称作<strong>向量</strong>。<br />
+也就是是说向量没有一个确切的面貌，只要它们满足可加和可数乘的就行，最熟悉的例子是<em>几何向量</em>或<em>矢量(Euclidean vectors, geometric vector, spatial vector)</em>，表示具有大小和方向的对象。其他例子，还包括<em>坐标空间(Coordinate spaces)、复数、函数空间(Function spaces)、线性方程组(linear equations)</em>。</p>
+<ul>
+<li>
+<p><strong>Definition</strong> <em>Vector Space</em></p>
+<p><strong>向量空间</strong>是定义了加法和数乘的向量的集合。</p>
+<p>给定域 \(\mathbb{F}\) ，向量空间 \(V\) 记为 \(\mathbb{F}-向量空间\) 。其二元运算：</p>
+<ul>
+<li>向量加法：+ : \(V × V → V\) 记作 \(v + w,\ ∃ v,w ∈ V\)</li>
+<li>数乘：· : \(F × V → V\) 记作 \(av,\ ∃a ∈ F\) 且 \(v ∈ V\)</li>
+</ul>
+<p>并且满足如下8条公理：</p>
+<ol>
+<li>加法结合律：\(u + (v + w) = (u + v) + w\)</li>
+<li>加法单位元：\(V\) 存在零向量 \(o，∀ v ∈ V , v + o = v\)</li>
+<li>加法逆元：\(∀v∈V,\ ∃w∈V\) ，使得 \(v + w = o\)</li>
+<li>加法交换律：\(v + w = w + v\)</li>
+<li>数乘与<em>域乘法</em>兼容性(compatibility): \(a(b v) = (ab)v\)</li>
+<li>数乘单位元: \(1 v = v\) , \(1\) 指域F的乘法单位元</li>
+<li>数乘对于向量加法满足分配律：\(a(v + w) = a v + a w\)</li>
+<li>数乘对于<em>域加法</em>满足分配律: \((a + b)v = a v + b v\)</li>
+</ol>
+<p>另，若 \(\mathbb{F}\) 是实数域 ℝ，则 \(V\) 称为实数向量空间；若 \(\mathbb{F}\) 是复数域 ℂ ，则 \(V\) 称为复数向量空间；若 \(\mathbb{F}\) 是有限域，则 \(V\) 称为有限域向量空间。</p>
+<blockquote>
+<p>对于<strong>域加法</strong>和<strong>域乘法</strong>的定义详见 <a href="list_and_matrix#beforhand">List And Matrix</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Definition</strong> <em>Vector</em></p>
+<p>向量就是向量空间里的元素。</p>
+</li>
+<li>
+<p><strong>Example</strong></p>
+<ul>
+<li>
+<p>\(F^n\) and  \(F^{\infty}\) <strong>坐标空间</strong></p>
+<p>在上一篇中我们提到了<strong>列表</strong>的一个应用，也就是 \(F^n\) ，它表示表示 \(n\) 维分量全为数全体向量。我们把它叫做<strong>坐标空间</strong>。
+$$F^n={(a_1,a_2,\cdots,a_n):a_i\in\mathbb{F}}$$</p>
+<p>如果这个列表有无穷个元素，那么所有这样的列表构成一个向量空间，记为 \(F^{\infty}\) 。
+$$F^{\infin}={(a_1,a_2,\cdots):a_i\in\mathbb{F}}$$</p>
+<p>在这个向量空间中向量的加法就被定义为列表的加法，数乘亦然。</p>
+</li>
+<li>
+<p>\(F^S\) <strong>函数空间</strong></p>
+<p>如果把一个函数 \(f:x\mapsto y\) 的每个 \(x\) 看作向量的一个分量，我们惊讶地发现，函数相加不就是这些分量相加嘛，数乘亦然。</p>
+<p><strong>Definition</strong></p>
+<ul>
+<li>如果 \(S\) 是一个集合，\(F^S\) 表示所有从 \(S\) 映射到 \(\mathbb{F}\) 的函数的集合。</li>
+<li>对于 \(f,g\in F^S\) ，加法 \(f+g\in F^S\) 被定义为
+$$(f+g)(x)=f(x)+f(g)\qquad\forall x\in\mathbb{F}$$</li>
+<li>对于 \(\lambda\in\mathbb{F},\ f\in F^S\) ，数乘 \(\lambda f\in F^S\) 被定义为
+$$(\lambda f)(x)=\lambda f(x)\qquad\forall x\in\mathbb{F}$$</li>
+</ul>
+<p>通过向量空间的八条法则的判定，易得 \(F^S\) 是一个向量空间，我们称之为<strong>函数空间</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>在下文中，我们默认 \(V\) 表示一个向量空间。</p>
+</blockquote>
+<h2 id="subspaces"><a class="header" href="#subspaces">SubSpaces</a></h2>
+<ul>
+<li>
+<p><strong>Definition</strong> <em>SubSpace</em></p>
+<p>如果 \(U\) 是 \(V\) 的一个子集，并且如果 \(U\) 也是一个向量空间（满足那八条法则），就称 \(U\) 是 \(V\) 的<strong>向量子空间</strong>。</p>
+</li>
+<li>
+<p><strong>Application</strong></p>
+<ul>
+<li>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Definition</strong></p>
+<p>if \(a\) is a combinaton of \((x_1,x_2,\cdots,x_n)\), and the value of each dimension can be listed as \((a_1,a_2,\cdots,a_n)\). Like:
+$$a = a_1x_1 + a_2x_2 + \cdots + a_nx_n$$
+We say the matrix of \(a\)
+$$\mathcal{M(a)}=
+\begin{bmatrix}a_1 \\
+a_2 \\
+\vdots \\
+a_n
+\end{bmatrix},$$
+which tells the <em><strong>value</strong></em> of \(a\).</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../knowlege/linear_algebra/simultaneous_linear_equations.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../knowlege/linear_algebra/linear_map.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../knowlege/linear_algebra/simultaneous_linear_equations.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../knowlege/linear_algebra/linear_map.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

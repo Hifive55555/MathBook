@@ -1,0 +1,778 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Math</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Ideas about math">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Preface</a></li><li class="chapter-item expanded "><a href="knowlege/index.html"><strong aria-hidden="true">1.</strong> Knowlege</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="knowlege/linear_algebra/index.html"><strong aria-hidden="true">1.1.</strong> Linear Algebra</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="knowlege/linear_algebra/list_and_matrix.html"><strong aria-hidden="true">1.1.1.</strong> List And Matrix</a></li><li class="chapter-item expanded "><a href="knowlege/linear_algebra/simultaneous_linear_equations.html"><strong aria-hidden="true">1.1.2.</strong> Simultaneous Linear Equations</a></li><li class="chapter-item expanded "><a href="knowlege/linear_algebra/vector_space.html"><strong aria-hidden="true">1.1.3.</strong> Vector Space</a></li><li class="chapter-item expanded "><a href="knowlege/linear_algebra/linear_map.html"><strong aria-hidden="true">1.1.4.</strong> Linear Map</a></li></ol></li><li class="chapter-item expanded "><a href="knowlege/alnalyze/index.html"><strong aria-hidden="true">1.2.</strong> Analyze</a></li></ol></li><li class="chapter-item expanded "><a href="model/index.html"><strong aria-hidden="true">2.</strong> Models</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="model/analyze/index.html"><strong aria-hidden="true">2.1.</strong> Analyze</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="model/analyze/limit_and_calculus.html"><strong aria-hidden="true">2.1.1.</strong> Limit And Calculus</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="technique/index.html"><strong aria-hidden="true">3.</strong> Techniques</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="technique/fraction.html"><strong aria-hidden="true">3.1.</strong> Fraction</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Math</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mathbook"><a class="header" href="#mathbook">MathBook</a></h1>
+<p>这是学习的类似笔记的东西，但我会假想自在写一个教程，旨在通过通俗易懂、逻辑顺畅并且不失准确性的方式重构知识体系。</p>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<p>本书的一大特色就是将定义、模型和技巧严格地区分开来，旨在尽可能地缩短每个知识点的篇幅，让学习的过程不被繁琐的技巧和让人头痛的习题止住脚步。但本书仍然总结了各个知识的技巧与可记忆的知识模型，这提供了一个给读者快速掌握考试要点的入口。在阅读本书时，纯无痛学习知识章节会给出当前章节建议的模型与习题技巧的链接；而技巧和模型会链接需要的知识；某一章节需要的的预备知识会在开篇提示，并给出链接；每一章节知识的应用会给出简要的应用提示并给出相应的链接。</p>
+<p>因此，本书并没有一个指定的学习路线，你可以从任何一个地方开始，并且总有链接为你解答疑惑。每一个知识点都会有相应的应用，这意味着，本书埋下的“伏笔”，都会被“回收”，不妨把这本书当作一篇悬疑片看吧！</p>
+<h2 id="chapters"><a class="header" href="#chapters">Chapters</a></h2>
+<h3 id="knowlege"><a class="header" href="#knowlege"><a href="knowlege/README.html">Knowlege</a></a></h3>
+<ul>
+<li><a href="linear_algebra/README.html">Linear Algebra</a>
+<ul>
+<li><a href="linear_algebra/list_and_matrix.html">List And Matrix</a></li>
+<li><a href="linear_algebra/simultaneous_linear_equations.html">Simultaneous Linear Equations</a></li>
+<li><a href="linear_algebra/vector_space.html">Vector Space</a></li>
+<li><a href="linear_algebra/linear_map.html">Linear Map</a></li>
+</ul>
+</li>
+<li><a href="alnalyze/README.html">Analyze</a></li>
+</ul>
+<h3 id="models"><a class="header" href="#models"><a href="model/README.html">Models</a></a></h3>
+<ul>
+<li><a href="model/analyze/README.html">Analyze</a>
+<ul>
+<li><a href="model/analyze/limit_and_calculus.html">Limit And Calculus</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="techniques"><a class="header" href="#techniques"><a href="technique/README.html">Techniques</a></a></h3>
+<ul>
+<li><a href="technique/fraction.html">Fraction</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="knowlege-1"><a class="header" href="#knowlege-1">Knowlege</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linear-algebra"><a class="header" href="#linear-algebra">Linear Algebra</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="list-and-matrix"><a class="header" href="#list-and-matrix">List And Matrix</a></h1>
+<p>$$(13,4,5,7)\qquad
+\begin{bmatrix}
+1&amp;3&amp;0\\ 2&amp;0&amp;5\\ 3&amp;2&amp;0
+\end{bmatrix}$$</p>
+<blockquote>
+<p><strong><em>列表</em>不是什么向量，它不过是一列元素罢了。</strong><br />
+<strong><em>矩阵</em>也不是什么线性变换，它只不过是一张表罢了。</strong><br />
+<strong>当我们想让它们干什么的时候，它们才具备了它们的<em>代数结构</em>。</strong></p>
+</blockquote>
+<p>一旦它们里面有了数，它们也许就可以具备一些性质，让里面的数发生数的运算。直觉告诉我们，也许相加就是对应位置相加，数乘就是把每个元素乘以一个数。我们的定义应该符合直觉。</p>
+<h2 id="beforhand"><a class="header" href="#beforhand">Beforhand</a></h2>
+<h3 id="mathbbf-and-field"><a class="header" href="#mathbbf-and-field">\(\mathbb{F}\) And <em>Field</em></a></h3>
+<p>\(\mathbb{F}\) 表示要么是 \(\mathbb{R}\) ，要么是 \(\mathbb{C}\) 。</p>
+<p>其中，\(\mathbb{R}\) 表示<strong>实数域（Real Number Field）</strong>，\(\mathbb{C}\) 表示<strong>复数域（Complex Number Field）</strong></p>
+<p>其中，<strong>实数域</strong>表示全体实数构成的集合，并且<strong>加法</strong>和<strong>乘法</strong>分别对这个集合构成一个<strong>阿贝尔群（Abelian Group）</strong>，并且乘法对加法满足<strong>分配律</strong>。也就是说，加法和乘法分别对实数域是</p>
+<ol>
+<li>封闭的</li>
+<li>满足结合律</li>
+<li>存在单位元（分别是 0 和 1）</li>
+<li>存在逆元（分别用 - 和 \(^{-1}\) 表示）</li>
+<li>满足交换律</li>
+</ol>
+<p>复数域的定义同理。</p>
+<h2 id="add"><a class="header" href="#add">Add</a></h2>
+<blockquote>
+<p>加法是数的运算，列表和矩阵的加法定义在数的加法。列表里的元素不一定是数，只要是可加的就行了——比如说数组和数阵（一般矩阵里都研究的是数，所以下文都认为矩阵就是数阵）。</p>
+</blockquote>
+<p>如果要非定义列表或者矩阵的加法的话，两个具有相同结构的列表或矩阵才可以相加，那么加法就是对应位置的元素相加。</p>
+<p>在下文我们会详细研究它们的结构，再给出准确的定义。</p>
+<h2 id="scalar-multiply"><a class="header" href="#scalar-multiply">Scalar Multiply</a></h2>
+<p>数乘就是把里面的每个元素乘上一个数。</p>
+<h2 id="list"><a class="header" href="#list">List</a></h2>
+<ul>
+<li>
+<p><strong>Definition</strong></p>
+<p><strong>列表</strong>就是把一些元素用括号括起来，再用逗号隔开的结构。（其中括号有时可以省略）
+$$(a_1,a_2,\cdots,a_n)$$</p>
+<ul>
+<li>
+<p>其中 \(a_i\) 叫做列表的<strong>坐标（Coordinate）</strong> ，\(n\) 叫做列表的<strong>长度（Length）</strong></p>
+</li>
+<li>
+<p>如果满足$$a_1,a_2,\cdots,a_n\in\mathbb{F}，$$那么就称这个列表为<strong>数组（Array）</strong>。</p>
+</li>
+<li>
+<p>如果两个列表的坐标对应相等，则称两列表<strong>相等</strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Property</strong> <em>Add</em></p>
+<p>列表的加法就是对应坐标相加，满足其坐标都是可加的。</p>
+</li>
+<li>
+<p><strong>Property</strong> <em>Scalar Multiply</em></p>
+<p>列表的数乘就是对每个坐标乘以一个数，满足其坐标都是可数乘的。</p>
+</li>
+<li>
+<p><strong>Application</strong></p>
+<ul>
+<li>
+<p>\(F^n\)</p>
+<p>一列数组可以表示一个 \(n\) 维向量，且其分量全为数。
+所有长度为 \(n\) 的向量构成一个向量空间 \(F^n\) ，表示 \(n\) 维全体向量。
+$$F^n={(a_1,a_2,\cdots,a_n):a_1,a_2,\cdots,a_n\in\mathbb{F}}$$</p>
+<p>如果这样的向量空间被定义了内积，那就是内积空间，可以做内积运算。如果把这样的列表理解成笛卡尔坐标，且 \(\mathbb{F}=\mathbb{R}\)，那这样的向量的空间就是欧几里得空间。</p>
+</li>
+<li>
+<p>陈列向量组</p>
+<p>一个列表经常用来陈列一组向量，比如一组基向量，或者一个极大线性无关组。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>在使用列表时，要了解其使用场景和上下文，因为不同的使用场景默认对列表加入了新的代数结构，不可混用。</p>
+<h2 id="matrix"><a class="header" href="#matrix">Matrix</a></h2>
+<ul>
+<li>
+<p><strong>Definition</strong></p>
+<p><strong>矩阵</strong>就是把一些以矩形阵形形式排列的元素用括号或者方括号括起来，再用空格隔开的结构。
+$$\begin{pmatrix}
+a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;&amp;\vdots \\
+a_{m1}&amp;a_{m2}&amp;\cdots&amp;a_{mn} \\
+\end{pmatrix}$$</p>
+<ul>
+<li>
+<p>其中 \(a_{ij}\) 叫做矩阵的一个<strong>元</strong> 。其中一行横着的元叫做矩阵的<strong>行</strong>，一列竖着的元叫做矩阵的<strong>列</strong>，\(m\) 叫做矩阵的<strong>行数</strong>，\(n\) 叫做矩阵的<strong>列数</strong>。</p>
+</li>
+<li>
+<p>我们谈论的矩阵都满足 \(a_{ij}\in\mathbb{F}\)</p>
+</li>
+<li>
+<p>行数和列数相同的矩阵叫做<strong>同型矩阵</strong>。</p>
+</li>
+<li>
+<p>如果同型矩阵 \(A=[a_{ij}]，B=[b_{ij}]\) ，满足 \(a_{ij}=b_{ij}\) ，则称两矩阵相等，记为 \(A=B\) 。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Property</strong> <em>Add</em></p>
+<p>同型矩阵的加法就是对应坐标相加。</p>
+</li>
+<li>
+<p><strong>Property</strong> <em>Scalar Multiply</em></p>
+<p>矩阵的数乘就是对每个元乘以一个数。</p>
+</li>
+<li>
+<p><strong>Application</strong></p>
+<ul>
+<li>
+<p>表示<a href="knowlege/linear_algebra/simultaneous_linear_equations">线性方程组</a></p>
+<p>线性方程组
+$$\begin{cases}
+y_1=a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n \\
+y_1=a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n \\
+\quad\ \ \vdots \\
+y_1=a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n
+\end{cases}$$</p>
+<p>可以表示为
+$$\begin{bmatrix}
+y_1 \\ y_2 \\ \vdots \\ y_m
+\end{bmatrix}=
+\begin{bmatrix}
+a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;&amp;\vdots \\
+a_{m1}&amp;a_{m2}&amp;\cdots&amp;a_{mn}
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix}$$</p>
+<p>记为
+$$y=Ax$$</p>
+</li>
+<li>
+<p>表示<a href="knowlege/linear_algebra/linear_map#linear-map">线性变换</a></p>
+<p>若 \(T\in\mathcal{L}(V,W)\) ，\(v_1,v_2\cdots,v_n\) 和 \(w_1,w_2\cdots,w_m\) 分别是 \(V\) 和 \(W\) 的两组基。则定义 \(m\)-by-\(n\) 矩阵
+$$A=\begin{bmatrix}
+a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;&amp;\vdots \\
+a_{m1}&amp;a_{m2}&amp;\cdots&amp;a_{mn}
+\end{bmatrix}$$
+是 \(T\) <strong>的矩阵</strong>。</p>
+<p>系数 \(a_{ij}\) 满足
+$$T(v_i)=a_{1i}w_1+a_{2i}w_2+\cdots+a_{mi}w_m$$</p>
+</li>
+<li>
+<p>表示一个向量的矩阵（我们教材上称之为“坐标”）</p>
+<p>若 \(v\in V\) 且 \(v_1,v_2,\cdots,v_n\) 是 \(V\) 的一组基。那么 \(v\) 可以被表示成这组基唯一的线性组合
+$$v=c_1v_1+\cdots+c_nv_n$$</p>
+<p>则向量 \(v\) <strong>的矩阵</strong> 可以被表示为一个列矩阵
+$$\mathcal{M}(v)=\begin{bmatrix}
+c_1 \\ \vdots \\ c_n
+\end{bmatrix}$$</p>
+<p>其中 \(c_1,\cdots,c_n\) 是标量。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>下面会直接给出矩阵的普通乘法, 分块矩阵运算等, 这些需要用到线性方程组的知识. 并且可以用于理解线性变换. 详细可以见其他文章并结合阅读.</p>
+</blockquote>
+<h3 id="matmul-product"><a class="header" href="#matmul-product">Matmul Product</a></h3>
+<p>矩阵在线性代数中被赋予了一个最基本的运算：<strong>普通乘法</strong>。</p>
+<ul>
+<li>怎么来的</li>
+</ul>
+<blockquote>
+<p>我们稍花功夫看看矩阵乘法为什么要这么定义。其中方程组是最为直接的原因，也是与历史发展是相同的。同时我会从脱离矩阵的线性变换的角度理解，得出线性变换与线性方程组是同源的，并且二者都可以用矩阵方便地表示。<br />
+首先我会介绍矩阵乘以一个列矩阵，并阐述其运用在线性方程组和线性代数的意义；然后我会以相同的方式介绍两个矩阵相乘；最后我会得出总结并给矩阵的<strong>普通乘积</strong>下定义。</p>
+</blockquote>
+<ol>
+<li>
+<p>矩阵乘以一个列矩阵</p>
+<ol>
+<li>
+<p><a href="knowlege/linear_algebra/linear_map#linear-map">线性变换</a></p>
+<blockquote>
+<p>线性变换的详细定义参见下下篇文章
+我们发现线性变换终不过是线性方程组的形式，因此其结果应该于线性方程组的一致。</p>
+</blockquote>
+</li>
+<li>
+<p><a href="knowlege/linear_algebra/simultaneous_linear_equations">线性方程组</a></p>
+<p>我们用这样的图来直观地感受矩阵之于线性方程组的操作:</p>
+<p>$$\begin{matrix}\\ \\ y_1 \\ y_2 \\ \vdots \\ y_m
+\end{matrix}
+\begin{matrix}\\ \\ \ \leftarrow\ \end{matrix}
+\begin{matrix}
+\ x_1\qquad x_2\quad \cdots\quad x_n\ \ \\
+\downarrow\ \\
+\begin{bmatrix}
+a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;&amp;\vdots \\
+a_{m1}&amp;a_{m2}&amp;\cdots&amp;a_{mn}
+\end{bmatrix}
+\end{matrix}$$</p>
+<p>我们就定义这样的操作为矩阵的普通乘法,得到结果称为普通乘积.
+$$\begin{bmatrix}
+y_1 \\ y_2 \\ \vdots \\ y_m
+\end{bmatrix}=
+\begin{bmatrix}
+a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;&amp;\vdots \\
+a_{m1}&amp;a_{m2}&amp;\cdots&amp;a_{mn}
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix}$$</p>
+<p>其中对于任一第 \(i\) 个 \(y_i\) , 都满足
+$$y_i=a_{i1}x_1+a_{i2}x_2+\cdots+a_{in}x_n$$</p>
+<p>因此每一个矩阵都有一个含义--<strong>线性变换</strong>.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>两个矩阵相乘</p>
+<blockquote>
+<p>详见下一篇: <a href="knowlege/linear_algebra/simultaneous_linear_equations">线性方程组</a></p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><strong>Definition</strong> <em>Matmul Product</em></li>
+</ul>
+<h3 id="block-matrix"><a class="header" href="#block-matrix">Block Matrix</a></h3>
+<p>在下一篇讲完向量空间后, 我们再讲矩阵的性质</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="simultaneous-linear-equations"><a class="header" href="#simultaneous-linear-equations">Simultaneous Linear Equations</a></h1>
+<p>我们把形如下面的式子称作一个线性方程组：</p>
+<p>$$\begin{cases}
+y_1=a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n \\
+y_2=a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n \\
+\quad\ \ \vdots \\
+y_m=a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n
+\end{cases}\tag{a}$$</p>
+<p>下面我们将其用矩阵表示,并借机定义矩阵的乘法.</p>
+<h2 id="denote-it-by-matrix"><a class="header" href="#denote-it-by-matrix">Denote It By Matrix</a></h2>
+<p>线性方程组 \((a)\) 式可以用矩阵表示:</p>
+<p>$$\begin{bmatrix}
+y_1 \\ y_2 \\ \vdots \\ y_m
+\end{bmatrix}=
+\begin{bmatrix}
+a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;&amp;\vdots \\
+a_{m1}&amp;a_{m2}&amp;\cdots&amp;a_{mn}
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix}$$</p>
+<p>我们用这样的图来直观地感受矩阵之于线性方程组的操作:</p>
+<p>$$\begin{matrix}\\ \\ y_1 \\ y_2 \\ \vdots \\ y_m
+\end{matrix}
+\begin{matrix}\\ \\ \ \leftarrow\ \end{matrix}
+\begin{matrix}
+\ x_1\qquad x_2\quad \cdots\quad x_n\ \ \\
+\downarrow\ \\
+\begin{bmatrix}
+a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n} \\
+a_{21}&amp;a_{22}&amp;\cdots&amp;a_{2n} \\
+\vdots&amp;\vdots&amp;&amp;\vdots \\
+a_{m1}&amp;a_{m2}&amp;\cdots&amp;a_{mn}
+\end{bmatrix}
+\end{matrix}$$</p>
+<p>其中对于任一第 \(i\) 个 \(y_i\) , 都满足
+$$y_i=a_{i1}x_1+a_{i2}x_2+\cdots+a_{in}x_n$$</p>
+<p>反过来我们就定义这样的操作就是矩阵的<strong>普通乘法</strong></p>
+<h2 id="扩展矩阵乘法的定义"><a class="header" href="#扩展矩阵乘法的定义">扩展矩阵乘法的定义</a></h2>
+<p>令 \(y=Ax,\ z=BAx=By\) , 有线性方程组
+$$\begin{cases}
+y_1=a_{11}x_1+\cdots+a_{1n}x_n \\
+\quad\ \ \vdots \\
+y_p=a_{p1}x_1+\cdots+a_{pn}x_n
+\end{cases}\tag{1}$$
+$$\begin{cases}
+z_1=b_{11}y_1+\cdots+b_{1p}y_p \\
+\quad\ \ \vdots \\
+z_m=b_{m1}y_1+\cdots+b_{mp}y_p
+\end{cases}\tag{2}$$</p>
+<blockquote>
+<p><strong>线性变换的角度理解</strong><br />
+对于列矩阵 \(x\) , 对 \(x\) 执行两次线性变换, 相当于对 \(x\) 执行了一次新的线性变换, 也就是说
+$$BAx=Cx$$</p>
+</blockquote>
+<p>将 \((1)\) 代入 \((2)\) 中得
+$$\begin{cases}
+z_1 &amp;= &amp;b_{11}(a_{11}x_1+\cdots+a_{1n}x_n)+\cdots+ \\
+&amp;&amp;b_{1p}(a_{p1}x_1+\cdots+a_{pn}x_n) \\
+&amp;\ \vdots \\
+z_m &amp;= &amp;b_{m1}(a_{11}x_1+\cdots+a_{1n}x_n)+\cdots+ \\
+&amp;&amp;b_{mp}(a_{p1}x_1+\cdots+a_{pn}x_n)
+\end{cases}$$</p>
+<p>把 \(x_i\) 提取公因式(下列求和条件均为 \(1\le k\le p\) )
+$$\begin{cases}
+z_1 &amp;= &amp;(\sum_{} b_{1k}a_{k1})x_1+\cdots+(\sum_{} b_{1k}a_{kn})x_n\\
+&amp;\ \vdots \\
+z_m &amp;= &amp;(\sum_{} b_{pk}a_{k1})x_1+\cdots+(\sum_{} b_{pk}a_{kn})x_n
+\end{cases}$$</p>
+<p>写成矩阵的形式
+$$\begin{bmatrix}
+z_1 \\ z_2 \\ \vdots \\ z_k
+\end{bmatrix}=
+\begin{bmatrix}
+\sum_{} b_{1p}a_{p1} &amp;\cdots&amp; \sum_{} b_{1p}a_{pn} \\
+\vdots&amp;&amp;\vdots \\
+\sum_{} b_{kp}a_{p1} &amp;\cdots&amp; \sum_{} b_{kp}a_{pn}
+\end{bmatrix}
+\begin{bmatrix}
+x_1 \\ x_2 \\ \vdots \\ x_n
+\end{bmatrix}$$</p>
+<p>所以对于矩阵 \(C=[c_{ij}]\) 的每个第 \(i\) 行第 \(j\) 列的元都满足
+$$c_{ij}=\sum_{k=1}^p b_{ik}a_{kj}$$</p>
+<p>这样的 $$Cx=BAx$$
+我们就称 \(C\) 是 \(B\) 和 \(A\) 的<strong>普通乘积</strong>, 记作
+$$C=BA$$</p>
+<h2 id="definition---matmul-product"><a class="header" href="#definition---matmul-product"><strong>Definition</strong> - <em>Matmul Product</em></a></h2>
+<p>设 \(B\) 为 \(m \times p\) 的矩阵，\(A\) 为 \(p \times n\) 的矩阵，那么称 的矩阵 \(C\) 为矩阵 \(B\) 与 \(A\) 的乘积，记作 \(BA\) ，其中矩阵 \(C\) 中的第 \(i\) 行第 \(j\) 列元素可以表示为：
+$$(BA)<em>{ij}=\sum</em>{k=1}^p b_{ik}a_{kj}$$</p>
+<blockquote>
+<p>其中简单的计算方法见分块矩阵, 几何意义见线性变换</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vecotor-space"><a class="header" href="#vecotor-space">Vecotor Space</a></h1>
+<p><strong>向量空间</strong>是一种代数结构，它被定义为带有<strong>加法</strong>和<strong>数乘</strong>的集合。向量空间的元素被称作<strong>向量</strong>。<br />
+也就是是说向量没有一个确切的面貌，只要它们满足可加和可数乘的就行，最熟悉的例子是<em>几何向量</em>或<em>矢量(Euclidean vectors, geometric vector, spatial vector)</em>，表示具有大小和方向的对象。其他例子，还包括<em>坐标空间(Coordinate spaces)、复数、函数空间(Function spaces)、线性方程组(linear equations)</em>。</p>
+<ul>
+<li>
+<p><strong>Definition</strong> <em>Vector Space</em></p>
+<p><strong>向量空间</strong>是定义了加法和数乘的向量的集合。</p>
+<p>给定域 \(\mathbb{F}\) ，向量空间 \(V\) 记为 \(\mathbb{F}-向量空间\) 。其二元运算：</p>
+<ul>
+<li>向量加法：+ : \(V × V → V\) 记作 \(v + w,\ ∃ v,w ∈ V\)</li>
+<li>数乘：· : \(F × V → V\) 记作 \(av,\ ∃a ∈ F\) 且 \(v ∈ V\)</li>
+</ul>
+<p>并且满足如下8条公理：</p>
+<ol>
+<li>加法结合律：\(u + (v + w) = (u + v) + w\)</li>
+<li>加法单位元：\(V\) 存在零向量 \(o，∀ v ∈ V , v + o = v\)</li>
+<li>加法逆元：\(∀v∈V,\ ∃w∈V\) ，使得 \(v + w = o\)</li>
+<li>加法交换律：\(v + w = w + v\)</li>
+<li>数乘与<em>域乘法</em>兼容性(compatibility): \(a(b v) = (ab)v\)</li>
+<li>数乘单位元: \(1 v = v\) , \(1\) 指域F的乘法单位元</li>
+<li>数乘对于向量加法满足分配律：\(a(v + w) = a v + a w\)</li>
+<li>数乘对于<em>域加法</em>满足分配律: \((a + b)v = a v + b v\)</li>
+</ol>
+<p>另，若 \(\mathbb{F}\) 是实数域 ℝ，则 \(V\) 称为实数向量空间；若 \(\mathbb{F}\) 是复数域 ℂ ，则 \(V\) 称为复数向量空间；若 \(\mathbb{F}\) 是有限域，则 \(V\) 称为有限域向量空间。</p>
+<blockquote>
+<p>对于<strong>域加法</strong>和<strong>域乘法</strong>的定义详见 <a href="knowlege/linear_algebra/list_and_matrix#beforhand">List And Matrix</a></p>
+</blockquote>
+</li>
+<li>
+<p><strong>Definition</strong> <em>Vector</em></p>
+<p>向量就是向量空间里的元素。</p>
+</li>
+<li>
+<p><strong>Example</strong></p>
+<ul>
+<li>
+<p>\(F^n\) and  \(F^{\infty}\) <strong>坐标空间</strong></p>
+<p>在上一篇中我们提到了<strong>列表</strong>的一个应用，也就是 \(F^n\) ，它表示表示 \(n\) 维分量全为数全体向量。我们把它叫做<strong>坐标空间</strong>。
+$$F^n={(a_1,a_2,\cdots,a_n):a_i\in\mathbb{F}}$$</p>
+<p>如果这个列表有无穷个元素，那么所有这样的列表构成一个向量空间，记为 \(F^{\infty}\) 。
+$$F^{\infin}={(a_1,a_2,\cdots):a_i\in\mathbb{F}}$$</p>
+<p>在这个向量空间中向量的加法就被定义为列表的加法，数乘亦然。</p>
+</li>
+<li>
+<p>\(F^S\) <strong>函数空间</strong></p>
+<p>如果把一个函数 \(f:x\mapsto y\) 的每个 \(x\) 看作向量的一个分量，我们惊讶地发现，函数相加不就是这些分量相加嘛，数乘亦然。</p>
+<p><strong>Definition</strong></p>
+<ul>
+<li>如果 \(S\) 是一个集合，\(F^S\) 表示所有从 \(S\) 映射到 \(\mathbb{F}\) 的函数的集合。</li>
+<li>对于 \(f,g\in F^S\) ，加法 \(f+g\in F^S\) 被定义为
+$$(f+g)(x)=f(x)+f(g)\qquad\forall x\in\mathbb{F}$$</li>
+<li>对于 \(\lambda\in\mathbb{F},\ f\in F^S\) ，数乘 \(\lambda f\in F^S\) 被定义为
+$$(\lambda f)(x)=\lambda f(x)\qquad\forall x\in\mathbb{F}$$</li>
+</ul>
+<p>通过向量空间的八条法则的判定，易得 \(F^S\) 是一个向量空间，我们称之为<strong>函数空间</strong>。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>在下文中，我们默认 \(V\) 表示一个向量空间。</p>
+</blockquote>
+<h2 id="subspaces"><a class="header" href="#subspaces">SubSpaces</a></h2>
+<ul>
+<li>
+<p><strong>Definition</strong> <em>SubSpace</em></p>
+<p>如果 \(U\) 是 \(V\) 的一个子集，并且如果 \(U\) 也是一个向量空间（满足那八条法则），就称 \(U\) 是 \(V\) 的<strong>向量子空间</strong>。</p>
+</li>
+<li>
+<p><strong>Application</strong></p>
+<ul>
+<li>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Definition</strong></p>
+<p>if \(a\) is a combinaton of \((x_1,x_2,\cdots,x_n)\), and the value of each dimension can be listed as \((a_1,a_2,\cdots,a_n)\). Like:
+$$a = a_1x_1 + a_2x_2 + \cdots + a_nx_n$$
+We say the matrix of \(a\)
+$$\mathcal{M(a)}=
+\begin{bmatrix}a_1 \\
+a_2 \\
+\vdots \\
+a_n
+\end{bmatrix},$$
+which tells the <em><strong>value</strong></em> of \(a\).</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linear-map"><a class="header" href="#linear-map">Linear Map</a></h1>
+<p>Suppose \(V\) and \(W\) are two <strong>linear spaces</strong>, and \((v_1,v_2,\cdots,v_n)\) is a basis of \(V\), \((w_1,w_2,\cdots,w_m)\) is a basis of \(W\). (So \(dimV=n,\ dimW=m.)\) And suppose \(T \in \mathcal{L}(V,W).\)</p>
+<ul>
+<li>
+<p>Question: can we denote \(T\) ?</p>
+</li>
+<li>
+<p><strong>Solution</strong></p>
+<p>对于任一 \(v \in V\), 都存在一个 \(w \in W\), s.t. \(w=T(v)\).<br />
+There is:
+$$
+v=x_1v_1+\cdots+x_nv_n \\
+w=y_1w_1+\cdots+y_mw_m \\
+$$</p>
+<p>There is also:
+$$\begin{align*}
+T(v) &amp;= T(x_1v_1+\cdots+x_nv_n)\\
+&amp;= x_1Tv_1+\cdots+x_nTv_n \\
+\end{align*}$$</p>
+<p>For each \(Tv_i\) , \(i=(1,2,\cdots,n)\), there is:
+$$Tv_i=a_{i,1}w_1+\cdots+a_{i,m}w_m$$</p>
+<p>So,
+$$\begin{align*}
+w=T(v)=\ &amp;x_1(a_{1,1}w_1+\cdots+a_{1,m}w_m)\ + \\
+&amp;x_2(a_{2,1}w_1+\cdots+a_{2,m}w_m)\ + \\
+&amp;\cdots\ + \\
+&amp;x_n(a_{n,1}w_1+\cdots+a_{n,m}w_m) \\
+=\ &amp;(x_1a_{1,1}+\cdots+x_na_{n,1})w_1\ + \\
+&amp;(x_1a_{1,2}+\cdots+x_na_{n,2})w_2\ + \\
+&amp;\cdots\ + \\
+&amp;(x_1a_{1,n}+\cdots+x_na_{n,m})w_m\ + \\
+=\ &amp;y_1w_1+\cdots+y_mw_m
+\end{align*}$$</p>
+<p>Hence,
+$$\begin{cases}
+y_1 = x_1a_{1,1}+\cdots+x_na_{n,1} \\
+y_2 = x_1a_{1,2}+\cdots+x_na_{n,2} \\
+\quad\ \ \vdots \\
+y_m = x_1a_{1,n}+\cdots+x_na_{n,m}
+\end{cases}$$</p>
+<p>\(\\exist v \in V\), there exists only one \(w \in W\), s.t. \(w=T(v)\).<br />
+There is:
+$$
+v=x_1v_1+\cdots+x_nv_n \\
+w=y_1w_1+\cdots+y_mw_m \\
+$$</p>
+<p>There is also:
+$$\begin{align*}
+T(v) &amp;= T(x_1v_1+\cdots+x_nv_n)\\
+&amp;= x_1Tv_1+\cdots+x_nTv_n \\
+\end{align*}$$</p>
+<p>For each \(Tv_i\) , \(i=(1,2,\cdots,n)\), there is:
+$$Tv_i=a_{i,1}w_1+\cdots+a_{i,m}w_m$$</p>
+<p>So,
+$$\begin{align*}
+w=T(v)=\ &amp;x_.(a_{1,1}w_1+\cdots+a_{1,m}w_m)\ + \\
+&amp;x_2(a_{2,1}w_1+\cdots+a_{2,m}w_m)\ + \\
+&amp;\cdots\ + \\
+&amp;x_n(a_{n,1}w_1+\cdots+a_{n,m}w_m) \\
+=\ &amp;(x_1a_{1,1}+\cdots+x_na_{n,1})w_1\ + \\
+&amp;(x_1a_{1,2}+\cdots+x_na_{n,2})w_2\ + \\
+&amp;\cdots\ + \\
+&amp;(x_1a_{1,n}+\cdots+x_na_{n,m})w_m\ + \\
+=\ &amp;y_1w_1+\cdots+y_mw_m
+\end{align*}$$</p>
+<p>Hence,
+$$\begin{cases}
+y_1 &amp;= x_1a_{1,1}+\cdots+x_na_{n,1} \\
+y_2 &amp;= x_1a_{1,2}+\cdots+x_na_{n,2} \\
+&amp;\vdots \\
+y_m &amp;= x_1a_{1,n}+\cdots+x_na_{n,m}
+\end{cases}$$</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="analyze"><a class="header" href="#analyze">Analyze</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="models-1"><a class="header" href="#models-1">Models</a></h1>
+<h2 id="limit"><a class="header" href="#limit">Limit</a></h2>
+<h2 id="calculus"><a class="header" href="#calculus">Calculus</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="model---analyze"><a class="header" href="#model---analyze">Model - Analyze</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="limit-and-calculus"><a class="header" href="#limit-and-calculus">Limit And Calculus</a></h1>
+<h2 id="limit-1"><a class="header" href="#limit-1">Limit</a></h2>
+<ul>
+<li>
+<p>Definition</p>
+<p>\(\exists{a_n},\ \lim_{n \to \infty} a_n = A\) denotes:</p>
+<p>\(\forall \sigma &gt; 0,\ \exists N &gt; 0, \\
+\text{s.t. when } n &gt; N,\ |a_n - A| &lt; \sigma. \\\)</p>
+<p>\(\lim_{x \to x_0} f(x)=A\) denotes:</p>
+<p>\(\forall \sigma &gt; 0,\ \exists \xi &gt; 0, \\
+\text{s.t. when } x \in \mathring{U}(x, \xi),\ f(x) \in \mathring{U}(A, \sigma)\)</p>
+</li>
+<li>
+<p>Algorithm</p>
+<ul>
+<li>极限（一元运算符）对加法和乘法构成结合律</li>
+</ul>
+</li>
+</ul>
+<h2 id="sequence-limit"><a class="header" href="#sequence-limit">Sequence Limit</a></h2>
+<h3 id="sigma---n"><a class="header" href="#sigma---n">\(\sigma - N\)</a></h3>
+<blockquote>
+<p>\(\forall \sigma &gt; 0,\ \exists N &gt; 0, \\
+\text{ s.t. when } n &gt; N,\ |a_n - N| &lt; \sigma. \\
+\Longleftrightarrow {a_n} \text{ is convergent.}\)</p>
+</blockquote>
+<h3 id="squeeze-theorem"><a class="header" href="#squeeze-theorem">Squeeze Theorem</a></h3>
+<blockquote>
+<p>\(n · u_{\min} &lt; \sum_{i=1}^n u_i &lt; n · u_{\max}\)</p>
+</blockquote>
+<p>The numerator and denominator are homogeneous.<br />
+The summation doesn't affect the limmit.</p>
+<h3 id="monotonically-bounded-criterion"><a class="header" href="#monotonically-bounded-criterion">Monotonically bounded criterion</a></h3>
+<blockquote>
+<p>\(\exists {x_n},\ x_{n+1}\ge x_n, \inf x_n = M \\
+\Longleftrightarrow \exists \lim_{n \to \infty} x_n \le M.\)<br />
+\(\exists {x_n},\ x_{n+1}\le x_n, \sup x_n = m \\
+\Longleftrightarrow \exists \lim_{n \to \infty} x_n \ge m.\)</p>
+</blockquote>
+<h3 id="by-integration-or-fraction"><a class="header" href="#by-integration-or-fraction">By Integration Or Fraction</a></h3>
+<p>The general form of the limit of summation is
+$$\lim_{n \to \infty} \sum_{k=1}^n f(n,k)$$</p>
+<ol>
+<li>
+<p>\(f(n,k) = g(k) = u(k+1) - u(k)\)</p>
+<blockquote>
+<p>\(\lim_{n \to \infty} \sum_{k=1}^n g(k) = \lim_{n \to \infty} [u(n+1) - u(1)]\)</p>
+</blockquote>
+<p>See <a href="model/analyze/fraction.html">Fraction</a></p>
+</li>
+<li>
+<p>\(f(n,k) = \frac{1}{n} g(\frac{k}{n})\)</p>
+<blockquote>
+<p>\(\lim_{n \to \infty} \sum_{k=1}^n \frac{1}{n} g(\frac{k}{n}) = \int_0^1 g(x) dx\)</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="heine-theorem"><a class="header" href="#heine-theorem">Heine Theorem</a></h3>
+<blockquote>
+<p>\(\lim_{x \to x_0} f(x) = A\\
+\Longleftrightarrow \exists {x_n},\  x_n \to x_0, \text{ s.t. } f(x_n) \to A.\)<br />
+\(x_o \to \infty \text{ also.}\)</p>
+</blockquote>
+<h2 id="function-limit"><a class="header" href="#function-limit">Function Limit</a></h2>
+<h2 id="derivation"><a class="header" href="#derivation">Derivation</a></h2>
+<h2 id="differentiation"><a class="header" href="#differentiation">Differentiation</a></h2>
+<h2 id="integration"><a class="header" href="#integration">Integration</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="fraction"><a class="header" href="#fraction">Fraction</a></h1>
+<p>$$\frac{n}{(n+1)!} = \frac{(n+1) - 1}{(n+1)!} = \frac{1}{n!} - \frac{1}{(n+1)!}$$</p>
+<p>$$\frac{1}{n(n+k)} = \frac{1}{k} \Big(\frac{1}{n} - \frac{1}{n+k}\Big)$$</p>
+<p>$$\frac{1}{\sqrt{n+1}+\sqrt{n}} = \sqrt{n+1} - \sqrt{n}$$</p>
+<p>$$\ln \Big(1+\frac{1}{x}\Big) = \ln(n+1) - \ln n$$</p>
+<p>$$\frac{2^n}{(2n - 1)(2{n+1} - 1)} = \frac{2 \times 2^n - 2^n}{(2n - 1)(2{n+1} - 1)} = \frac{1}{2^n-1} - \frac{1}{2^{n+1}-1}$$</p>
+<h2 id="applycation"><a class="header" href="#applycation">Applycation</a></h2>
+<ul>
+<li><a href="technique/../model/analyze/limit_and_calculus.html#by_integration_or_fraction">Limit</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+    </body>
+</html>
